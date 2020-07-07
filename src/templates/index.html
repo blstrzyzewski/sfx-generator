@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{%  block head %}
+
+
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="{{url_for('static',filename='css/new.css')}}"></link>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Open+Sans&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+ {% endblock %}
+ {% block body %}
+<div id="home">
+<div class="row">
+   <div id="title">
+
+<h1>SFX Generator</h1>
+</div>
+<div id="descWrap">
+<h2> Upload a file or paste a youtube link, select effect and level, and hit submit.</h2>
+</div>
+</div>
+
+<div class="row">
+ <div class="column">
+     <div class="content" id="addFile">
+   <h2> Upload a file</h2>
+    <i class="fa fa-cloud-upload" ></i>
+    <div class="button" onclick="document.getElementById('file').click()"><h3 id="selectFile">Select file</h3>
+    <input type="file" name="files[]" id="file"></div>
+ </div>
+</div>
+
+<div class="column">
+   <div class="content">
+ <h2>Paste a YouTube link</h2>
+  <i class="fa fa-paste" style="font-size:65px !important"></i>
+  <div class="button"><input type="text"style="width:100%;height:100%" id="url"></input></div>
+
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column drop">
+   <div class="scontent">
+       <div class="dropdown-container">
+     <label for="openDropdown" class="dropdown" id="dropdownValue" >
+       Select effect
+       <i class="fa fa-arrow-down" style="color:#121212;font-size:25px"></i>
+     </label>
+
+     <input type="checkbox" id="openDropdown" hidden>
+
+     <div class="dropdown-menu">
+       <span class="effectValue">Slowed + reverb</span>
+       <span class="effectValue">Bass boost</span>
+       <span class="effectValue">Distorted</span>
+       <span class="effectValue">Sped up</span>
+     </div>
+   </div>
+
+</div>
+</div>
+<div class="column drop">
+
+       <div class="scontent">
+           <div class="i-dropdown-container">
+         <label for="i-openDropdown" class="dropdown" id="dropdownIValue" >
+           Select level
+           <i class="fa fa-arrow-down" style="color:#121212;font-size:25px;"></i>
+         </label>
+
+         <input type="checkbox" id="i-openDropdown" hidden>
+
+         <div class="i-dropdown-menu">
+           <span class="intensityValue">Low</span>
+           <span class="intensityValue">Medium</span>
+           <span class="intensityValue">High</span>
+
+         </div>
+       </div>
+
+   </div>
+
+</div>
+</div>
+
+
+
+
+<div id="subDiv">
+
+    <a href="#" class='btn' id="submit">Submit</a>
+     <img id="loader" src="{{url_for('static',filename='img/Gear-0.6s-58px.svg')}}"></img>
+
+</div>
+
+
+<div style="height:100px;"></div>
+</div>
+<div id="track"style="display:none">
+    <h2 id="songTitle"></h2>
+    <div class="row"><div id="waveforms"></div></div>
+<div class="row">
+    <div class="column">
+<div class="button" id="play"><h3 >Play/pause</h3></div>
+</div>
+
+    <div class="column">
+<div class="button" id="download"><h3 id="selectFile">Download</h3></div>
+</div>
+</div>
+<div class="row"><div class="button" id="return" onclick="location.reload();"><h3 id="selectFile">Process new file</h3></div></div>
+</div>
+
+ {% endblock %}
