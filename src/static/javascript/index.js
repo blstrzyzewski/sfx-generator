@@ -19,7 +19,7 @@ document.getElementById('submit').addEventListener('click',function(event){
 
     //alowed file types
     const fileTypes=["mp3","wav","m4a","flac"]
-    
+
     //get file and/or url from document
     const file=document.getElementById("file");
     const url=document.getElementById("url").value;
@@ -107,9 +107,9 @@ document.getElementById('submit').addEventListener('click',function(event){
          }
 
          //create waveform for returned song
-         blob = new Blob([res.data], { 'type' : 'audio/mp3' });
+         song = new Blob([res.data], { 'type' : 'audio/mp3' });
          let wavesurfers=waveCreator('#waveforms',['violet','purple']);
-         wavesurfers.loadBlob(blob);
+         wavesurfers.loadBlob(song);
 
 
 
@@ -120,7 +120,7 @@ document.getElementById('submit').addEventListener('click',function(event){
 
             const anchor = document.createElement("a");
             anchor.download = name;
-            anchor.href = window.URL.createObjectURL(blob);
+            anchor.href = window.URL.createObjectURL(song);
             anchor.target ="_blank";
             anchor.style.display = "none"; // just to be safe!
             document.body.appendChild(anchor);
@@ -182,24 +182,32 @@ const $icheckbox = document.getElementById('i-openDropdown');
 const $idropdownMenu = document.querySelector('.i-dropdown-menu');
 const $dropdownMenu = document.querySelector('.dropdown-menu');
 
+function handleDropdown(menu,checkbox){
+    menu.addEventListener('click', (e) => {
+      checkbox.checked = false;
+      // setting checked to false won't trigger 'change'
+      // event, manually dispatch an event to rotate
+      // dropdown arrow icon
+      checkbox.dispatchEvent(new Event('change'));
+    });
+}
+handleDropdown($dropdownMenu,$checkbox);
+handleDropdown($idropdownMenu,$icheckbox);
+
+function dropdownUpdate(dropdown, value){
+    const possibleValues= document.querySelectorAll(dropdown);
+    possibleValues.forEach((item, i) => {
+        item.addEventListener('click',function(){
+            //update dropdown menu text when an option is selected
+            document.getElementById(value).innerHTML=item.innerText+'<i class="fa fa-arrow-down" style="color:#121212;font-size:25px"></i>'
 
 
-$dropdownMenu.addEventListener('click', (e) => {
-  $checkbox.checked = false;
-  // setting checked to false won't trigger 'change'
-  // event, manually dispatch an event to rotate
-  // dropdown arrow icon
-  $checkbox.dispatchEvent(new Event('change'));
-});
-
-
-$idropdownMenu.addEventListener('click', (e) => {
-  $icheckbox.checked = false;
-  // setting checked to false won't trigger 'change'
-  // event, manually dispatch an event to rotate
-  // dropdown arrow icon
-  $icheckbox.dispatchEvent(new Event('change'));
-});
+        });
+    });
+}
+dropdownUpdate('.effectValue','dropdownValue');
+dropdownUpdate('.intensityValue','dropdownIValue')
+/*
 const effectValues= document.querySelectorAll(".effectValue");
 effectValues.forEach((item, i) => {
     item.addEventListener('click',function(){
@@ -216,5 +224,5 @@ intensityValues.forEach((item, i) => {
         document.getElementById("dropdownIValue").innerHTML=item.innerText+'<i class="fa fa-arrow-down" style="color:#121212;font-size:25px;"></i>'
 
 });
-    });
+});*/
 }());
