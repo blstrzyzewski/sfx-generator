@@ -1,19 +1,14 @@
-from flask import Flask, render_template, url_for,flash,make_response,request,redirect,jsonify,Response,send_file,send_from_directory,after_this_request,session
-import os
+from flask import Flask, render_template,flash,make_response,redirect,send_file
 import requests
 from werkzeug.utils import secure_filename
 from pysndfx import AudioEffectsChain
 import soundfile as sf
 import numpy as np
 import io
-
-
 from pydub import AudioSegment
+
 app = Flask(__name__)
 ALLOWED_EXTENSIONS = set(['mp3','wav','m4a','flac'])
-
-UPLOAD_FOLDER = './uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 
@@ -86,7 +81,7 @@ def add_effects(song,type,intensity):
     song_with_effects.export(file_buffer,format="mp3",bitrate="320k")
 
     file_buffer.seek(0)
-    flash('File successfully uploaded')
+    flash('File successfully processed')
     return file_buffer
 
 
@@ -107,7 +102,7 @@ def download():
 
     headers = {
         'x-rapidapi-host': "youtube-to-mp32.p.rapidapi.com",
-        
+
         }
     # get download url from api
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -186,7 +181,7 @@ def process_file():
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
-            flash('No file selected for uploading')
+            flash('No file selected')
             return redirect(request.url)
         if file and allowed_file(file.filename):
 
@@ -218,4 +213,4 @@ def process_file():
 
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run()
