@@ -183,6 +183,7 @@ const $idropdownMenu = document.querySelector('.i-dropdown-menu');
 const $dropdownMenu = document.querySelector('.dropdown-menu');
 
 function handleDropdown(menu,checkbox){
+    //expand or minimize dropdown menu on click
     menu.addEventListener('click', (e) => {
       checkbox.checked = false;
       // setting checked to false won't trigger 'change'
@@ -195,10 +196,11 @@ handleDropdown($dropdownMenu,$checkbox);
 handleDropdown($idropdownMenu,$icheckbox);
 
 function dropdownUpdate(dropdown, value){
+    //update dropdown menu text when an option is selected
     const possibleValues= document.querySelectorAll(dropdown);
     possibleValues.forEach((item, i) => {
         item.addEventListener('click',function(){
-            //update dropdown menu text when an option is selected
+
             document.getElementById(value).innerHTML=item.innerText+'<i class="fa fa-arrow-down" style="color:#121212;font-size:25px"></i>'
 
 
@@ -207,22 +209,5 @@ function dropdownUpdate(dropdown, value){
 }
 dropdownUpdate('.effectValue','dropdownValue');
 dropdownUpdate('.intensityValue','dropdownIValue')
-/*
-const effectValues= document.querySelectorAll(".effectValue");
-effectValues.forEach((item, i) => {
-    item.addEventListener('click',function(){
-        //update dropdown menu text when an option is selected
-        document.getElementById("dropdownValue").innerHTML=item.innerText+'<i class="fa fa-arrow-down" style="color:#121212;font-size:25px"></i>'
 
-
-    });
-});
-const intensityValues= document.querySelectorAll(".intensityValue");
-intensityValues.forEach((item, i) => {
-    item.addEventListener('click',function(){
-        //update dropdown menu text when an option is selected
-        document.getElementById("dropdownIValue").innerHTML=item.innerText+'<i class="fa fa-arrow-down" style="color:#121212;font-size:25px;"></i>'
-
-});
-});*/
 }());
